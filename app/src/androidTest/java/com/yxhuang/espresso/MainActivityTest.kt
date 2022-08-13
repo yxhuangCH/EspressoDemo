@@ -2,6 +2,7 @@ package com.yxhuang.espresso
 
 import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.Espresso.pressBack
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
@@ -81,8 +82,11 @@ class MainActivityTest{
         //  SecondActivity 展示
         onView(withId(R.id.secondary)).check(matches(isDisplayed()))
 
-        // 点击返回按钮
-        onView(withId(R.id.button_back)).perform(click())
+        // 方法1 ，点击返回按钮
+//        onView(withId(R.id.button_back)).perform(click())
+
+        // 方法 2， 点击导航栏的返回
+        pressBack()
 
         onView(withId(R.id.main)).check(matches(isDisplayed()))
     }
