@@ -18,6 +18,10 @@ import org.junit.runner.RunWith
 @RunWith(AndroidJUnit4ClassRunner::class)
 class SecondActivityTest{
 
+    /**
+     * ActivityScenarioRule:
+     * https://developer.android.com/reference/androidx/test/ext/junit/rules/ActivityScenarioRule.html
+     */
     @get:Rule
     val activityScenarioRule = ActivityScenarioRule(SecondActivity::class.java)
 
