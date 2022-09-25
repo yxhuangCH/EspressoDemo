@@ -8,15 +8,17 @@ import android.content.Intent
 import android.content.res.Resources
 import android.net.Uri
 import android.provider.MediaStore
+import androidx.test.core.app.ActivityScenario
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
+import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.intent.Intents.intended
 import androidx.test.espresso.intent.Intents.intending
 import androidx.test.espresso.intent.matcher.IntentMatchers.hasAction
 import androidx.test.espresso.intent.matcher.IntentMatchers.hasData
 import androidx.test.espresso.intent.rule.IntentsTestRule
-import androidx.test.espresso.matcher.ViewMatchers.withId
+import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
 import androidx.test.platform.app.InstrumentationRegistry
 import com.yxhuang.espresso.R
@@ -72,5 +74,14 @@ class MainActivityTest {
         val resultIntent = Intent()
         resultIntent.data = imageUri
         return Instrumentation.ActivityResult(Activity.RESULT_OK, resultIntent)
+    }
+
+    @Test
+    fun test_toast() {
+        val activityScenario = ActivityScenario.launch(MainActivity::class.java)
+        onView(withId(R.id.btn_show_toast)).perform(click())
+
+        onView(withText(MainActivity.buildToastMessage("test toast"))).inRoot(ToastMatcher())
+            .check(matches(isDisplayed()))
     }
 }

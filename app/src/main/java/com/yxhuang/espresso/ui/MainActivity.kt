@@ -6,8 +6,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestManager
 import com.bumptech.glide.request.RequestOptions
@@ -30,6 +32,10 @@ class MainActivity : AppCompatActivity() {
 
         findViewById<TextView>(R.id.button_open_gallery).setOnClickListener {
             pickFromGallery()
+        }
+
+        findViewById<Button>(R.id.btn_show_toast).setOnClickListener {
+            showToast(buildToastMessage("test toast"))
         }
     }
 
@@ -57,4 +63,13 @@ class MainActivity : AppCompatActivity() {
         startActivityForResult(intent, GALLERY_REQUEST_CODE)
     }
 
+    private fun showToast(message: String){
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
+
+    companion object{
+        fun buildToastMessage(name: String): String{
+            return name
+        }
+    }
 }
