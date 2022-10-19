@@ -9,6 +9,7 @@ import android.util.Log
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.yxhuang.espresso.R
+import kotlinx.android.synthetic.main.activity_image_viewer.*
 import kotlinx.android.synthetic.main.activity_main.*
 
 /**

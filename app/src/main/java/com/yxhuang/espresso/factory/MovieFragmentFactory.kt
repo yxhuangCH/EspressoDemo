@@ -1,11 +1,11 @@
 package com.yxhuang.espresso.factory
 
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentFactory
-import com.bumptech.glide.RequestManager
-import com.yxhuang.espresso.ErrorFragment
+import com.bumptech.glide.request.RequestOptions
+import com.yxhuang.espresso.data.source.MoviesDataSource
 import com.yxhuang.espresso.ui.DirectorsFragment
 import com.yxhuang.espresso.ui.MovieDetailFragment
+import com.yxhuang.espresso.ui.MovieListFragment
 import com.yxhuang.espresso.ui.StarActorsFragment
 
 /**
@@ -14,37 +14,50 @@ import com.yxhuang.espresso.ui.StarActorsFragment
  * Description:
  */
 
-class MovieFragmentFactory : FragmentFactory() {
 
-    override fun instantiate(classLoader: ClassLoader, className: String): Fragment {
-        val fragmentClass = loadFragmentClass(classLoader, className)
-        var fragment: Fragment? = null
-        var errorDescription: String? = null
+class MovieFragmentFactory(
+        private val requestOptions: RequestOptions? = null,
+        private val moviesDataSource: MoviesDataSource? = null
+) : FragmentFactory(){
 
-        when (fragmentClass) {
+    private val TAG: String = "AppDebug"
 
-            MovieDetailFragment::class.java -> {
-                fragment = MovieDetailFragment()
+    override fun instantiate(classLoader: ClassLoader, className: String) =
+
+        when(className){
+
+            MovieListFragment::class.java.name -> {
+                if (moviesDataSource != null) {
+                    MovieListFragment(moviesDataSource)
+                } else {
+                    super.instantiate(classLoader, className)
+                }
             }
 
-            DirectorsFragment::class.java -> {
-                fragment = DirectorsFragment()
+            MovieDetailFragment::class.java.name -> {
+                if(requestOptions != null
+                    && moviesDataSource != null){
+                    MovieDetailFragment(
+                        requestOptions,
+                        moviesDataSource
+                    )
+                }
+                else{
+                    super.instantiate(classLoader, className)
+                }
             }
 
-            StarActorsFragment::class.java -> {
-                fragment = StarActorsFragment()
+            DirectorsFragment::class.java.name -> {
+                DirectorsFragment()
             }
 
-            else -> errorDescription = "Something went wrong."
+            StarActorsFragment::class.java.name -> {
+                StarActorsFragment()
+            }
+
+            else -> {
+                super.instantiate(classLoader, className)
+            }
         }
-
-        fragment?.let { nonNullFragment ->
-            return nonNullFragment
-        }
-        fragment = ErrorFragment(errorDescription)
-
-        return fragment
-    }
-
 
 }
