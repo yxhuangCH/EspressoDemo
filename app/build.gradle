@@ -121,6 +121,8 @@ dependencies {
     // espresso
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-contrib:3.3.0'
+    implementation "androidx.test.espresso:espresso-idling-resource:3.3.0"
+
     // intent
     androidTestImplementation "androidx.test.espresso:espresso-intents:3.2.0"
 

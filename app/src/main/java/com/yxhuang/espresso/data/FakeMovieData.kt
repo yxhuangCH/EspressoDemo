@@ -7,6 +7,8 @@ package com.yxhuang.espresso.data
  */
 object FakeMovieData {
 
+    const val FAKE_NETWORK_DELAY = 1000L
+
     val movies = arrayOf(
         Movie(
             0,
@@ -51,6 +53,24 @@ object FakeMovieData {
             "Gandalf and Aragorn lead the World of Men against Sauron's army to draw his gaze from Frodo and Sam as they approach Mount Doom with the One Ring.",
             arrayListOf("Peter Jackson"),
             arrayListOf("Elijah Wood", "Viggo Mortensen", "Ian McKellen")
+        ),
+        Movie(
+            5,
+            "The Lord of the Rings: The Return of the King 5 ",
+            "https://nyc3.digitaloceanspaces.com/open-api-spaces/open-api-static/blog/1/The_Lord_of_the_Rings_The_Return_of_the_King-fragment_factory_2.png",
+            "Gandalf and Aragorn lead the World of Men against Sauron's army to draw his gaze from Frodo and Sam as they approach Mount Doom with the One Ring.",
+            arrayListOf("Peter Jackson 5"),
+            arrayListOf("Elijah Wood 5", "Viggo Mortensen", "Ian McKellen")
+        ),
+        Movie(
+            6,
+            "The Lord of the Rings: The Return of the King 6 ",
+            "https://nyc3.digitaloceanspaces.com/open-api-spaces/open-api-static/blog/1/The_Lord_of_the_Rings_The_Return_of_the_King-fragment_factory_2.png",
+            "Gandalf and Aragorn lead the World of Men against Sauron's army to draw his gaze from Frodo and Sam as they approach Mount Doom with the One Ring.",
+            arrayListOf("Peter Jackson 6"),
+            arrayListOf("Elijah Wood 6", "Viggo Mortensen", "Ian McKellen")
         )
+
+
     )
 }

@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
+import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
@@ -17,9 +18,10 @@ import com.yxhuang.espresso.R
 import com.yxhuang.espresso.data.source.MoviesDataSource
 import com.yxhuang.espresso.data.source.MoviesRemoteDataSource
 import com.yxhuang.espresso.factory.MovieFragmentFactory
+import kotlinx.android.synthetic.main.activity_main.*
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), UICommunicationListener {
 
     // dependencies (typically would be injected with dagger)
     lateinit var requestOptions: RequestOptions
@@ -56,6 +58,13 @@ class MainActivity : AppCompatActivity() {
             // Data Source
             moviesDataSource = MoviesRemoteDataSource()
         }
+    }
+
+    override fun loading(isLoading: Boolean) {
+        if (isLoading)
+            progress_bar.visibility = View.VISIBLE
+        else
+            progress_bar.visibility = View.INVISIBLE
     }
 
 }

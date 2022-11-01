@@ -2,14 +2,19 @@ package com.yxhuang.espresso.ui
 
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.Espresso.pressBack
+import androidx.test.espresso.IdlingRegistry
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
 import com.yxhuang.espresso.R
 import com.yxhuang.espresso.data.FakeMovieData
+import com.yxhuang.espresso.util.EspressoIdlingResource
+import org.junit.After
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -29,9 +34,26 @@ class MovieListFragmentTest {
     val LIST_ITEM_IN_TEST = 4
     val MOVIE_IN_TEST = FakeMovieData.movies[LIST_ITEM_IN_TEST]
 
+    @Before
+    fun registerIdlingResource() {
+        IdlingRegistry.getInstance().register(EspressoIdlingResource.countingIdlingResource)
+    }
+
+    @After
+    fun unregisterIdlingResource() {
+        IdlingRegistry.getInstance().unregister(EspressoIdlingResource.countingIdlingResource)
+    }
+
     @Test
     fun test_isListFragmentVisible_onAppLaunch() {
         onView(withId(R.id.recycler_view)).check(matches(isDisplayed()))
+    }
+
+    @Test
+    fun test_itemText_Exist() {
+        val  movieTitle = MOVIE_IN_TEST.title
+        onView(withId(R.id.recycler_view))
+            .perform(RecyclerViewActions.scrollTo<MoviesListAdapter.MovieViewHolder>(hasDescendant(withText(movieTitle))))
     }
 
     @Test
