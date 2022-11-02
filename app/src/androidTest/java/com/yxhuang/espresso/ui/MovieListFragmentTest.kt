@@ -12,6 +12,7 @@ import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
 import com.yxhuang.espresso.R
 import com.yxhuang.espresso.data.FakeMovieData
+import com.yxhuang.espresso.ui.util.EspressoIdlingResourceRule
 import com.yxhuang.espresso.util.EspressoIdlingResource
 import org.junit.After
 import org.junit.Before
@@ -34,15 +35,18 @@ class MovieListFragmentTest {
     val LIST_ITEM_IN_TEST = 4
     val MOVIE_IN_TEST = FakeMovieData.movies[LIST_ITEM_IN_TEST]
 
-    @Before
-    fun registerIdlingResource() {
-        IdlingRegistry.getInstance().register(EspressoIdlingResource.countingIdlingResource)
-    }
+    @get:Rule
+    val espressoIdlingResourceRule = EspressoIdlingResourceRule()
 
-    @After
-    fun unregisterIdlingResource() {
-        IdlingRegistry.getInstance().unregister(EspressoIdlingResource.countingIdlingResource)
-    }
+//    @Before
+//    fun registerIdlingResource() {
+//        IdlingRegistry.getInstance().register(EspressoIdlingResource.countingIdlingResource)
+//    }
+//
+//    @After
+//    fun unregisterIdlingResource() {
+//        IdlingRegistry.getInstance().unregister(EspressoIdlingResource.countingIdlingResource)
+//    }
 
     @Test
     fun test_isListFragmentVisible_onAppLaunch() {
